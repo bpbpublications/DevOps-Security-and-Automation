@@ -1,0 +1,18 @@
+// Jenkins Shared Library example
+def call(Map config) {
+    pipeline {
+        agent any
+        stages {
+            stage('Build') {
+                steps {
+                    script {
+                        dockerBuild(
+                            registry: config.registry,
+                            image: config.image
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+1.	---
+2.	- name: Configure web servers
+3.	  hosts: web_servers
+4.	  become: yes
+5.	  tasks:
+6.	    - name: Install nginx
+7.	      apt:
+8.	        name: nginx
+9.	        state: present
+10.	        
+11.	    - name: Start nginx service
+12.	      service:
+13.	        name: nginx
+14.	        state: started
+15.	        enabled: yes
+16.	        
+17.	    - name: Copy website configuration
+18.	      template:
+19.	        src: nginx.conf.j2
+20.	        dest: /etc/nginx/sites-available/default
+21.	      notify: Restart nginx
+22.	        
+23.	    - name: Create document root
+24.	      file:
+25.	        path: /var/www/html
+26.	        state: directory
+27.	        mode: '0755'
+28.	        
+29.	    - name: Deploy website content
+30.	      copy:
+31.	        src: files/index.html
+32.	        dest: /var/www/html/index.html
+33.	        
+34.	  handlers:
+35.	    - name: Restart nginx
+36.	      service:
+37.	        name: nginx
+38.	        state: restarted

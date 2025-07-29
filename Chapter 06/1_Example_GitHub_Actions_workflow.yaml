@@ -1,0 +1,12 @@
+# Example GitHub Actions workflow
+name: CI/CD Pipeline
+on: [push]
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Auto-dependency update
+        uses: dependabot/dependabot-core@v3
+      - name: Security scan
+        uses: sonarsource/sonarqube-scan-action@master

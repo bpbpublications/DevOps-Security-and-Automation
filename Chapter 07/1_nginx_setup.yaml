@@ -1,0 +1,22 @@
+# File: nginx_setup.yml
+- name: Install and configure Nginx
+  hosts: web_servers
+  become: yes  # Run tasks with elevated privileges
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+      notify: Restart Nginx
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

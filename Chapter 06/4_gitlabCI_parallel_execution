@@ -1,0 +1,8 @@
+# GitLab CI parallel execution
+test:
+  parallel: 3
+  script:
+    - npm run test:split
+  artifacts:
+    reports:
+      junit: junit.xml

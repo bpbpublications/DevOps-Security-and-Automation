@@ -1,0 +1,31 @@
+# Example GitLab CI/CD Pipeline for Terraform
+stages:
+  - validate
+  - plan
+  - apply
+  - test
+
+terraform_validate:
+  stage: validate
+  script:
+    - terraform init
+    - terraform validate
+    - tflint
+    - checkov -d .
+
+terraform_plan:
+  stage: plan
+  script:
+    - terraform init
+    - terraform plan -out=tfplan
+  artifacts:
+    paths:
+      - tfplan
+
+terraform_apply:
+  stage: apply
+  script:
+    - terraform apply -auto-approve tfplan
+  when: manual
+  only:
+    - main

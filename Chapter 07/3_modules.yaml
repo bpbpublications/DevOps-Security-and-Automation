@@ -1,0 +1,13 @@
+- name: Manage directories
+  hosts: all
+  tasks:
+    - name: Create a directory
+      file:
+        path: /var/www/html
+        state: directory
+        mode: '0755'
+
+    - name: Remove a file
+      file:
+        path: /var/www/html/old_file.txt
+        state: absent
