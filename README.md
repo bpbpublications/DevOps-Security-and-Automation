@@ -1,2 +1,2 @@
-# DevOps Essentials Bootcamp
-DevOps Essentials Bootcamp, by BPB Publications
+# DevOps Security and Automation
+DevOps Security and Automation, by BPB Publications
